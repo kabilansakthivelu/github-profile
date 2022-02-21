@@ -1,0 +1,13 @@
+.homePage{
+    display: flex;
+}
+.ant-image{
+    width: 65%;
+}
+.backgroundImage{
+    width: 100%;
+    height: 100vh !important;
+}
+.form{
+    width: 35%;
+}
