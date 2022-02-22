@@ -1,11 +1,45 @@
-import React, { useContext } from "react";
+import React, { useContext, useRef } from "react";
+import {useNavigate} from 'react-router-dom';
 import { StateContext } from "../../App";
-import { Image } from "antd";
+import { Image, notification } from "antd";
 import { Form, Input, Button, Checkbox } from "antd";
 import "./Home.css";
 
 const Home = () => {
-  const { state } = useContext(StateContext);
+  const { state, dispatch } = useContext(StateContext);
+
+  const navigate = useNavigate();
+
+  const usernameRef = useRef();
+
+  const openNotification = () => {
+  notification.open({
+    message: 'Error',
+    description:
+      'Please enter a valid username',
+      className: "notification",
+  });
+};
+
+  const fetchUserData = async(username) =>{
+    const resp = await fetch(`https://api.github.com/users/${username}`);
+    const data = await resp.json();
+    if(!data.message){
+      navigate("/compare");
+      console.log(data);
+      dispatch({
+        type: "ADD_USER",
+        payload: data,
+      })
+    }
+    else{
+      openNotification();
+    }
+  }
+
+  const submitUser = () =>{
+    fetchUserData(usernameRef.current.props.value);
+  }
 
   return (
     <div className="homePage">
@@ -29,6 +63,7 @@ const Home = () => {
             }}
             layout="vertical"
             requiredMark={false}
+            onFinish={submitUser}
           >
             <Form.Item
               label="Enter Github username"
@@ -41,7 +76,7 @@ const Home = () => {
                 },
               ]}
             >
-              <Input placeholder="Username" />
+              <Input placeholder="Username" ref={usernameRef}/>
             </Form.Item>
 
             <Form.Item

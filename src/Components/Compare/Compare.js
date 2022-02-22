@@ -1,11 +1,15 @@
-import React from 'react';
-import { Layout } from 'antd';
+import React, {useContext} from 'react';
+import {StateContext} from '../../App';
+import { Layout, Typography } from 'antd';
 import './Compare.css';
 
 const { Header } = Layout;
+const { Title } = Typography;
 
 const Compare = () => {
 
+  const {state} = useContext(StateContext);
+  
   return (
     <div>
     <Layout>
