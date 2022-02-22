@@ -13,14 +13,15 @@ const Home = () => {
           alt="background_image"
           preview={false}
         />
+      <div className="formSection">
       <div className="form">
         <Form
           name="basic"
           labelCol={{
-            span: 20,
+            span: 40,
           }}
           wrapperCol={{
-            span: 16,
+            span: 60,
           }}
           layout ="vertical"
           requiredMark={false}
@@ -28,6 +29,7 @@ const Home = () => {
           <Form.Item
             label="Enter Github username"
             name="username"
+            className="usernameLabel"
             rules={[
               {
                 required: true,
@@ -49,6 +51,7 @@ const Home = () => {
             </Button>
           </Form.Item>
         </Form>
+        </div>
       </div>
     </div>
   );
