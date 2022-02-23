@@ -12,7 +12,17 @@ const Home = () => {
 
   const usernameRef = useRef();
 
-  const openNotification = () => {
+
+  const openNotificationForMaxCount = () => {
+  notification.open({
+    message: 'Error',
+    description:
+      'You can compare a maximum of 3 Github users',
+      className: "notification",
+  });
+};
+
+  const openNotificationForError = () => {
   notification.open({
     message: 'Error',
     description:
@@ -24,18 +34,22 @@ const Home = () => {
   const fetchUserData = async(username) =>{
     const resp = await fetch(`https://api.github.com/users/${username}`);
     const data = await resp.json();
-    if(!data.message){
+    if((!data.message) && (state.user.includes(null))){
       navigate("/compare");
-      console.log(data);
       dispatch({
         type: "ADD_USER",
         payload: data,
       })
     }
+    else if(!data.message && !state.user.includes(null)){
+      openNotificationForMaxCount();
+    }
     else{
-      openNotification();
+      openNotificationForError();
     }
   }
+
+  console.log(state.users);
 
   const submitUser = () =>{
     fetchUserData(usernameRef.current.props.value);

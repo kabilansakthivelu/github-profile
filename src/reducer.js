@@ -1,6 +1,6 @@
 export const initialState = {
     isMobileView : false,
-    users: [],
+    users: [null, null, null],
 }
 
 export const reducer = (state, action) =>{
@@ -13,9 +13,17 @@ export const reducer = (state, action) =>{
             ...state,
             isMobileView: false,
         }
-         case "ADD_USER": return {
+         case "ADD_USER": 
+         let newUsersArray = [...state.users];
+         for(let i=0;i<newUsersArray.length;i++){
+             if(newUsersArray[i] === null){
+                 newUsersArray[i] = action.payload;
+                 break;
+             }
+         }
+         return {
             ...state,
-            users: [...state.users, action.payload],
+            users: newUsersArray,
         }
     }
 }

@@ -3,3 +3,37 @@
     font-size: x-large;
     cursor: pointer;
 }
+.content{
+    background-color: whitesmoke;
+}
+.compareSection{
+    display: flex;
+    justify-content: space-around;
+}
+.fieldLabels{
+    margin-top: 240px;
+}
+.userAvatar{
+    border-radius: 200px;
+    height: 200px !important;
+    width: 200px !important;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.userAvatarContainer{
+    display: flex;
+    justify-content: center;
+}
+.ant-image{
+    width: 100%;
+}
+.fieldLabel{
+    font-weight: bold;
+}
+.singleUser{
+    width: 25%;
+    background-color: white;
+    padding-left: 40px;
+    padding-right: 40px;
+    box-shadow: 5px 5px 5px lightgrey;
+}
