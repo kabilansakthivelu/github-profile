@@ -34,6 +34,7 @@ function App() {
   const navigate = useNavigate();
 
   const usernameRef = useRef();
+  const newUserNameRef = useRef();
 
   const openNotificationForMaxCount = () => {
     notification.open({
@@ -52,7 +53,6 @@ function App() {
   };
 
   const fetchUserData = async (username) => {
-    console.log(username);
     const resp = await fetch(`https://api.github.com/users/${username}`);
     const data = await resp.json();
     if (!data.message && state.users.includes(null)) {
@@ -60,22 +60,23 @@ function App() {
         type: "ADD_USER",
         payload: data,
       });
+      dispatch({
+      type: "CLOSE_MODAL",
+    })
       navigate("/compare");
-      usernameRef.current.props.value = "";
-    } else if (!data.message && !state.users.includes(null)) {
+      const resp1 = await fetch(`https://api.github.com/users/${username}/repos`);
+      const data1 = await resp1.json();
+    } 
+    else if (!data.message && !state.users.includes(null)) {
       openNotificationForMaxCount();
     } else {
       openNotificationForError();
     }
   };
 
-  const submitUser = () => {
-    fetchUserData(usernameRef.current.props.value);
-  };
-
   return (
     <div className="App">
-        <StateContext.Provider value={{ state, dispatch, usernameRef, submitUser, fetchUserData }}>
+        <StateContext.Provider value={{ state, dispatch, usernameRef, newUserNameRef, fetchUserData }}>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/compare" element={<Compare />} />

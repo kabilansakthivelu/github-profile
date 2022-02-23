@@ -1,4 +1,4 @@
-import React, { useContext, useRef } from "react";
+import React, { useContext } from "react";
 import { StateContext } from "../../App";
 import { Layout, Typography, Tag, Image, Button, Modal, Input } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
@@ -8,9 +8,7 @@ const { Header, Content } = Layout;
 const { Title } = Typography;
 
 const Compare = () => {
-  const { state, dispatch, fetchUserData } = useContext(StateContext);
-
-  const newUserNameRef = useRef();
+  const { state, dispatch, fetchUserData, newUserNameRef } = useContext(StateContext);
 
   const addUser = () =>{
     dispatch({
@@ -20,6 +18,7 @@ const Compare = () => {
 
   const handleOk = () => {
     fetchUserData(newUserNameRef.current.state.value);
+    newUserNameRef.current.state.value = "";
   };
 
   const handleCancel = () => {

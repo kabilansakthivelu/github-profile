@@ -4,7 +4,7 @@ import { Image, notification, Form, Input, Button } from "antd";
 import "./Home.css";
 
 const Home = () => {
-  const { state, usernameRef, submitUser } = useContext(StateContext);
+  const { state, usernameRef, fetchUserData } = useContext(StateContext);
 
   return (
     <div className="homePage">
@@ -28,7 +28,7 @@ const Home = () => {
             }}
             layout="vertical"
             requiredMark={false}
-            onFinish={submitUser}
+            onFinish={()=>{fetchUserData(usernameRef.current.props.value)}}
           >
             <Form.Item
               label="Enter Github username"
