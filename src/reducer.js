@@ -1,6 +1,7 @@
 export const initialState = {
     isMobileView : false,
     users: [null, null, null],
+    showModal:  false,
 }
 
 export const reducer = (state, action) =>{
@@ -15,6 +16,7 @@ export const reducer = (state, action) =>{
         }
          case "ADD_USER": 
          let newUsersArray = [...state.users];
+         console.log(newUsersArray);
          for(let i=0;i<newUsersArray.length;i++){
              if(newUsersArray[i] === null){
                  newUsersArray[i] = action.payload;
@@ -25,5 +27,10 @@ export const reducer = (state, action) =>{
             ...state,
             users: newUsersArray,
         }
+        case "OPEN_MODAL": return {
+            ...state,
+            showModal: true,
+        }
+        default: return state;
     }
 }

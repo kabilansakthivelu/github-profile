@@ -1,5 +1,5 @@
 import React, { useContext, useRef } from "react";
-import {useNavigate} from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import { StateContext } from "../../App";
 import { Image, notification } from "antd";
 import { Form, Input, Button, Checkbox } from "antd";
@@ -12,48 +12,41 @@ const Home = () => {
 
   const usernameRef = useRef();
 
-
   const openNotificationForMaxCount = () => {
-  notification.open({
-    message: 'Error',
-    description:
-      'You can compare a maximum of 3 Github users',
+    notification.open({
+      message: "Error",
+      description: "You can compare a maximum of 3 Github users",
       className: "notification",
-  });
-};
+    });
+  };
 
   const openNotificationForError = () => {
-  notification.open({
-    message: 'Error',
-    description:
-      'Please enter a valid username',
+    notification.open({
+      message: "Error",
+      description: "Please enter a valid username",
       className: "notification",
-  });
-};
+    });
+  };
 
-  const fetchUserData = async(username) =>{
+  const fetchUserData = async (username) => {
     const resp = await fetch(`https://api.github.com/users/${username}`);
     const data = await resp.json();
-    if((!data.message) && (state.user.includes(null))){
-      navigate("/compare");
+    if (!data.message && state.users.includes(null)) {
       dispatch({
         type: "ADD_USER",
         payload: data,
-      })
-    }
-    else if(!data.message && !state.user.includes(null)){
+      });
+      navigate("/compare");
+    } else if (!data.message && !state.users.includes(null)) {
       openNotificationForMaxCount();
-    }
-    else{
+    } else {
       openNotificationForError();
     }
-  }
+  };
 
-  console.log(state.users);
-
-  const submitUser = () =>{
+  const submitUser = () => {
     fetchUserData(usernameRef.current.props.value);
-  }
+  };
 
   return (
     <div className="homePage">
@@ -90,7 +83,7 @@ const Home = () => {
                 },
               ]}
             >
-              <Input placeholder="Username" ref={usernameRef}/>
+              <Input placeholder="Username" ref={usernameRef} />
             </Form.Item>
 
             <Form.Item

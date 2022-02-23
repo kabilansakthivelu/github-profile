@@ -1,13 +1,28 @@
 import React, { useContext } from "react";
 import { StateContext } from "../../App";
-import { Layout, Typography, Tag, Image } from "antd";
+import { Layout, Typography, Tag, Image, Button, Modal } from "antd";
+import { PlusOutlined } from "@ant-design/icons";
 import "./Compare.css";
 
 const { Header, Content } = Layout;
 const { Title } = Typography;
 
 const Compare = () => {
-  const { state } = useContext(StateContext);
+  const { state, dispatch } = useContext(StateContext);
+
+  const addUser = () =>{
+    dispatch({
+      type: "OPEN_MODAL",
+    })
+  }
+
+  const handleOk = () => {
+    console.log(1);
+  };
+
+  const handleCancel = () => {
+    console.log(2);
+  };
 
   return (
     <div>
@@ -28,31 +43,50 @@ const Compare = () => {
               <p className="fieldLabel">Repos</p>
               <p className="fieldLabel">Joined</p>
             </div>
-            {state.users.map((user) => {
-              return (
-                <div key={user.id} className="singleUser">
-                <div className="userAvatarContainer">
-                <div>
-                  <Image
-                    src={user.avatar_url}
-                    alt={user.id}
-                    className="userAvatar"
-                  />
+            {state.users.map((user, index) => {
+              if (user !== null) {
+                return (
+                  <div key={user.id} className="singleUser">
+                    <div className="userAvatarContainer">
+                      <div>
+                        <Image
+                          src={user.avatar_url}
+                          alt={user.id}
+                          className="userAvatar"
+                        />
+                      </div>
+                    </div>
+                    <p>{user.name || "-"}</p>
+                    <p>{user.company || "-"}</p>
+                    <p>{user.location || "-"}</p>
+                    <p>{user.followers}</p>
+                    <p>{user.following}</p>
+                    <p>{user.public_repos}</p>
+                    <p>{user.created_at.slice(0, 10)}</p>
                   </div>
+                );
+              } else {
+                return (
+                  <div className="singleUser" key={index}>
+                  <div className="emptyUser">
+                    <Button type="primary" icon={<PlusOutlined />} onClick={addUser}>
+                      Add user
+                    </Button>
+                    </div>
                   </div>
-                  <p>{user.name || "-"}</p>
-                  <p>{user.company || "-"}</p>
-                  <p>{user.location || "-"}</p>
-                  <p>{user.followers}</p>
-                  <p>{user.following}</p>
-                  <p>{user.public_repos}</p>
-                  <p>{user.created_at.slice(0, 10)}</p>
-                </div>
-              );
+                );
+              }
             })}
           </div>
         </Content>
       </Layout>
+
+       <Modal title="Basic Modal" visible={state.showModal} onOk={handleOk} onCancel={handleCancel}>
+        <p>Some contents...</p>
+        <p>Some contents...</p>
+        <p>Some contents...</p>
+      </Modal>
+
     </div>
   );
 };
