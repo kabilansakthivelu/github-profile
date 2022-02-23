@@ -1,6 +1,6 @@
-import React, { useContext } from "react";
+import React, { useContext, useRef } from "react";
 import { StateContext } from "../../App";
-import { Layout, Typography, Tag, Image, Button, Modal } from "antd";
+import { Layout, Typography, Tag, Image, Button, Modal, Input } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import "./Compare.css";
 
@@ -8,7 +8,9 @@ const { Header, Content } = Layout;
 const { Title } = Typography;
 
 const Compare = () => {
-  const { state, dispatch } = useContext(StateContext);
+  const { state, dispatch, fetchUserData } = useContext(StateContext);
+
+  const newUserNameRef = useRef();
 
   const addUser = () =>{
     dispatch({
@@ -17,11 +19,13 @@ const Compare = () => {
   }
 
   const handleOk = () => {
-    console.log(1);
+    fetchUserData(newUserNameRef.current.state.value);
   };
 
   const handleCancel = () => {
-    console.log(2);
+    dispatch({
+      type: "CLOSE_MODAL",
+    })
   };
 
   return (
@@ -81,10 +85,8 @@ const Compare = () => {
         </Content>
       </Layout>
 
-       <Modal title="Basic Modal" visible={state.showModal} onOk={handleOk} onCancel={handleCancel}>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
+       <Modal title="Enter Github username" visible={state.showModal} onOk={handleOk} onCancel={handleCancel}>
+         <Input placeholder="Username" ref={newUserNameRef}/>
       </Modal>
 
     </div>

@@ -1,52 +1,10 @@
-import React, { useContext, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useContext } from "react";
 import { StateContext } from "../../App";
-import { Image, notification } from "antd";
-import { Form, Input, Button, Checkbox } from "antd";
+import { Image, notification, Form, Input, Button } from "antd";
 import "./Home.css";
 
 const Home = () => {
-  const { state, dispatch } = useContext(StateContext);
-
-  const navigate = useNavigate();
-
-  const usernameRef = useRef();
-
-  const openNotificationForMaxCount = () => {
-    notification.open({
-      message: "Error",
-      description: "You can compare a maximum of 3 Github users",
-      className: "notification",
-    });
-  };
-
-  const openNotificationForError = () => {
-    notification.open({
-      message: "Error",
-      description: "Please enter a valid username",
-      className: "notification",
-    });
-  };
-
-  const fetchUserData = async (username) => {
-    const resp = await fetch(`https://api.github.com/users/${username}`);
-    const data = await resp.json();
-    if (!data.message && state.users.includes(null)) {
-      dispatch({
-        type: "ADD_USER",
-        payload: data,
-      });
-      navigate("/compare");
-    } else if (!data.message && !state.users.includes(null)) {
-      openNotificationForMaxCount();
-    } else {
-      openNotificationForError();
-    }
-  };
-
-  const submitUser = () => {
-    fetchUserData(usernameRef.current.props.value);
-  };
+  const { state, usernameRef, submitUser } = useContext(StateContext);
 
   return (
     <div className="homePage">

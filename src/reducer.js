@@ -16,7 +16,6 @@ export const reducer = (state, action) =>{
         }
          case "ADD_USER": 
          let newUsersArray = [...state.users];
-         console.log(newUsersArray);
          for(let i=0;i<newUsersArray.length;i++){
              if(newUsersArray[i] === null){
                  newUsersArray[i] = action.payload;
@@ -30,6 +29,10 @@ export const reducer = (state, action) =>{
         case "OPEN_MODAL": return {
             ...state,
             showModal: true,
+        }
+        case "CLOSE_MODAL": return {
+            ...state,
+            showModal: false,
         }
         default: return state;
     }
