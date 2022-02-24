@@ -73,6 +73,7 @@ function App() {
           favLanguage: {},
         }
       );
+      moreInfoObj.favLanguage = Object.keys(moreInfoObj.favLanguage);
       dispatch({
         type: "ADD_USER",
         payload: {info: data, moreUserInfo : moreInfoObj },

@@ -46,7 +46,7 @@ const Compare = () => {
               <p className="fieldLabel">Repos</p>
               <p className="fieldLabel">Joined</p>
                <p className="fieldLabel">Stars</p>
-              <p className="fieldLabel">Language</p>
+              <p className="fieldLabel">Languages</p>
             </div>
             {state.users.map((user, index) => {
               if (user !== null) {
@@ -69,7 +69,11 @@ const Compare = () => {
                     <p>{user.info.public_repos}</p>
                     <p>{user.info.created_at.slice(0, 10)}</p>
                     <p>{user.moreUserInfo.stargazers_count}</p>
-                    
+                    {user.moreUserInfo.favLanguage.map((item)=>{
+                      if(item !== "null"){
+                        return <Tag>{item}</Tag>
+                      }
+                    })}
                   </div>
                 );
               } else {
