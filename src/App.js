@@ -56,26 +56,32 @@ function App() {
     const resp = await fetch(`https://api.github.com/users/${username}`);
     const data = await resp.json();
     if (!data.message && state.users.includes(null)) {
+      const resp1 = await fetch(
+        `https://api.github.com/users/${username}/repos`
+      );
+      const data1 = await resp1.json();
+      let moreInfoObj = data1.reduce(
+        (acc, item) => {
+          acc.stargazers_count += item.stargazers_count;
+          acc.favLanguage[item.language] = acc.favLanguage[item.language]
+            ? acc.favLanguage[item.language] + 1
+            : 1;
+          return acc;
+        },
+        {
+          stargazers_count: 0,
+          favLanguage: {},
+        }
+      );
       dispatch({
         type: "ADD_USER",
-        payload: data,
+        payload: {info: data, moreUserInfo : moreInfoObj },
       });
       dispatch({
-      type: "CLOSE_MODAL",
-    })
+        type: "CLOSE_MODAL",
+      });
       navigate("/compare");
-      const resp1 = await fetch(`https://api.github.com/users/${username}/repos`);
-      const data1 = await resp1.json();
-      let moreInfoObj = data1.reduce((acc, item)=>{
-          acc.stargazers_count += item.stargazers_count;
-          acc.favLanguage[item.language] = acc.favLanguage[item.language] ? (acc.favLanguage[item.language])+1 : 1;
-          return acc;
-      }, {
-        stargazers_count: 0,
-        favLanguage : {},
-      })
-    } 
-    else if (!data.message && !state.users.includes(null)) {
+    } else if (!data.message && !state.users.includes(null)) {
       openNotificationForMaxCount();
     } else {
       openNotificationForError();
@@ -84,12 +90,14 @@ function App() {
 
   return (
     <div className="App">
-        <StateContext.Provider value={{ state, dispatch, usernameRef, newUserNameRef, fetchUserData }}>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/compare" element={<Compare />} />
-          </Routes>
-        </StateContext.Provider>
+      <StateContext.Provider
+        value={{ state, dispatch, usernameRef, newUserNameRef, fetchUserData }}
+      >
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/compare" element={<Compare />} />
+        </Routes>
+      </StateContext.Provider>
     </div>
   );
 }
