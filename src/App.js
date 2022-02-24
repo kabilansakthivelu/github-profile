@@ -66,6 +66,14 @@ function App() {
       navigate("/compare");
       const resp1 = await fetch(`https://api.github.com/users/${username}/repos`);
       const data1 = await resp1.json();
+      let moreInfoObj = data1.reduce((acc, item)=>{
+          acc.stargazers_count += item.stargazers_count;
+          acc.favLanguage[item.language] = acc.favLanguage[item.language] ? (acc.favLanguage[item.language])+1 : 1;
+          return acc;
+      }, {
+        stargazers_count: 0,
+        favLanguage : {},
+      })
     } 
     else if (!data.message && !state.users.includes(null)) {
       openNotificationForMaxCount();
