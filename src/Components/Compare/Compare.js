@@ -52,6 +52,7 @@ const Compare = () => {
               if (user !== null) {
                 return (
                   <div key={user.id} className="singleUser">
+                  <Button type="link" danger className="removeLink">Remove</Button>
                     <div className="userAvatarContainer">
                       <div>
                         <Image

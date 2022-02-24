@@ -11,7 +11,7 @@
     justify-content: space-around;
 }
 .fieldLabels{
-    margin-top: 240px;
+    margin-top: 270px;
 }
 .userAvatar{
     border-radius: 200px;
@@ -24,6 +24,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    clear: right;
 }
 .ant-image{
     width: 100%;
@@ -36,8 +37,12 @@
     background-color: white;
     padding-left: 40px;
     padding-right: 40px;
+    padding-bottom: 40px;
     box-shadow: 5px 5px 5px lightgrey;
 }
 .emptyUser{
     height: 100%;
+}
+.removeLink{
+    float: right;
 }
