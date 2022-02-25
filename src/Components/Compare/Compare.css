@@ -4,7 +4,9 @@
     cursor: pointer;
 }
 .content{
-    background-color: whitesmoke;
+    background-color: #34568B;
+    height: 100vh;
+    padding-top: 15px;
 }
 .compareSection{
     display: flex;
@@ -12,6 +14,7 @@
 }
 .fieldLabels{
     margin-top: 270px;
+    color: white;
 }
 .userAvatar{
     border-radius: 200px;
@@ -33,16 +36,21 @@
     font-weight: bold;
 }
 .singleUser{
-    width: 25%;
+    width: 27%;
     background-color: white;
     padding-left: 40px;
     padding-right: 40px;
-    padding-bottom: 40px;
-    box-shadow: 5px 5px 5px lightgrey;
+    border-radius: 10px;
 }
 .emptyUser{
     height: 100%;
 }
 .removeLink{
     float: right;
+}
+.languageTag{
+    margin-bottom: 10px !important;
+}
+.starIcon{
+    color: green !important;
 }

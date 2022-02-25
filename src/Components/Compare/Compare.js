@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { StateContext } from "../../App";
 import { Layout, Typography, Tag, Image, Button, Modal, Input } from "antd";
-import { PlusOutlined } from "@ant-design/icons";
+import { PlusOutlined, StarFilled } from "@ant-design/icons";
 import "./Compare.css";
 
 const { Header, Content } = Layout;
@@ -69,10 +69,10 @@ const Compare = () => {
                     <p>{user.info.following}</p>
                     <p>{user.info.public_repos}</p>
                     <p>{user.info.created_at.slice(0, 10)}</p>
-                    <p>{user.moreUserInfo.stargazers_count}</p>
+                    <p>{user.moreUserInfo.stargazers_count} <StarFilled className="starIcon"/></p>
                     {user.moreUserInfo.favLanguage.map((item)=>{
                       if(item !== "null"){
-                        return <Tag>{item}</Tag>
+                        return <Tag className="languageTag" color="blue">{item}</Tag>
                       }
                     })}
                   </div>
