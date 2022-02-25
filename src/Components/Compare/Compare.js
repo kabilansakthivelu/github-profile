@@ -27,6 +27,13 @@ const Compare = () => {
     })
   };
 
+  const removeUser = (id) =>{
+    dispatch({
+      type: "REMOVE_USER",
+      payload: id,
+    })
+  }
+
   return (
     <div>
       <Layout>
@@ -51,8 +58,8 @@ const Compare = () => {
             {state.users.map((user, index) => {
               if (user !== null) {
                 return (
-                  <div key={user.id} className="singleUser">
-                  <Button type="link" danger className="removeLink">Remove</Button>
+                  <div key={user.info.id} className="singleUser">
+                  <Button type="link" danger className="removeLink" onClick={()=>{removeUser(user.info.id)}}>Remove</Button>
                     <div className="userAvatarContainer">
                       <div>
                         <Image

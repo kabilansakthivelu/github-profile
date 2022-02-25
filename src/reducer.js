@@ -26,6 +26,7 @@ export const reducer = (state, action) =>{
             ...state,
             users: newUsersArray,
         }
+
         case "OPEN_MODAL": return {
             ...state,
             showModal: true,
@@ -34,6 +35,20 @@ export const reducer = (state, action) =>{
             ...state,
             showModal: false,
         }
+        case "REMOVE_USER": return {
+            ...state,
+            users: state.users.map((user)=>{
+                if(user === null){
+                    return user;
+                }
+                else if(user.info.id !== action.payload){
+                     return user;
+                 }
+                 else if(user.info.id === action.payload){
+                     return null;
+                 }
+            })
+        };
         default: return state;
     }
 }
