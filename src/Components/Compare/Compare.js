@@ -1,6 +1,6 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { StateContext } from "../../App";
-import { Layout, Typography, Tag, Image, Button, Modal, Input } from "antd";
+import { Layout, Typography, Tag, Image, Button, Modal, Input, Spin } from "antd";
 import { PlusOutlined, StarFilled } from "@ant-design/icons";
 import "./Compare.css";
 
@@ -8,7 +8,8 @@ const { Header, Content } = Layout;
 const { Title } = Typography;
 
 const Compare = () => {
-  const { state, dispatch, fetchUserData, newUserNameRef } = useContext(StateContext);
+
+  const { state, dispatch, fetchUserData, newUserNameRef, spin, setSpin } = useContext(StateContext);
 
   const addUser = () =>{
     dispatch({
@@ -18,7 +19,11 @@ const Compare = () => {
 
   const handleOk = () => {
     fetchUserData(newUserNameRef.current.state.value);
+      dispatch({
+      type: "CLOSE_MODAL",
+    })
     newUserNameRef.current.state.value = "";
+    setSpin(true);
   };
 
   const handleCancel = () => {
@@ -35,7 +40,7 @@ const Compare = () => {
   }
 
   return (
-    <div>
+    <Spin spinning={spin}>
       <Layout>
         <Header>
           <Typography.Text strong={true} className="logo">
@@ -103,8 +108,7 @@ const Compare = () => {
        <Modal title="Enter Github username" visible={state.showModal} onOk={handleOk} onCancel={handleCancel}>
          <Input placeholder="Username" ref={newUserNameRef}/>
       </Modal>
-
-    </div>
+    </Spin>
   );
 };
 

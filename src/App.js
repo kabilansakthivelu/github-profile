@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useRef } from "react";
+import React, { useEffect, useReducer, useRef, useState } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import { reducer, initialState } from "./reducer";
 import Home from "./Components/Home/Home";
@@ -10,6 +10,8 @@ export const StateContext = React.createContext();
 
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
+
+  const [spin, setSpin] = useState(false);
 
   const screenSize = () => {
     if (window.innerWidth < 768) {
@@ -78,21 +80,20 @@ function App() {
         type: "ADD_USER",
         payload: {info: data, moreUserInfo : moreInfoObj },
       });
-      dispatch({
-        type: "CLOSE_MODAL",
-      });
+      setSpin(false);
       navigate("/compare");
     } else if (!data.message && !state.users.includes(null)) {
       openNotificationForMaxCount();
     } else {
       openNotificationForError();
+      setSpin(false);
     }
   };
 
   return (
     <div className="App">
       <StateContext.Provider
-        value={{ state, dispatch, usernameRef, newUserNameRef, fetchUserData }}
+        value={{ state, dispatch, usernameRef, newUserNameRef, fetchUserData, spin, setSpin }}
       >
         <Routes>
           <Route path="/" element={<Home />} />
