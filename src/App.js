@@ -55,6 +55,7 @@ function App() {
   };
 
   const fetchUserData = async (username) => {
+    setSpin(true);
     const resp = await fetch(`https://api.github.com/users/${username}`);
     const data = await resp.json();
     if (!data.message && state.users.includes(null)) {

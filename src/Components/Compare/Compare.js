@@ -84,7 +84,7 @@ const Compare = () => {
                     <p>{user.moreUserInfo.stargazers_count} <StarFilled className="starIcon"/></p>
                     {user.moreUserInfo.favLanguage.map((item)=>{
                       if(item !== "null"){
-                        return <Tag className="languageTag" color="blue">{item}</Tag>
+                        return <Tag className="languageTag" color="blue" key={item}>{item}</Tag>
                       }
                     })}
                   </div>

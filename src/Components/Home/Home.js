@@ -1,12 +1,13 @@
 import React, { useContext } from "react";
 import { StateContext } from "../../App";
-import { Image, notification, Form, Input, Button } from "antd";
+import { Image, notification, Form, Input, Button, Spin } from "antd";
 import "./Home.css";
 
 const Home = () => {
-  const { state, usernameRef, fetchUserData } = useContext(StateContext);
+  const { state, usernameRef, fetchUserData, spin } = useContext(StateContext);
 
   return (
+    <Spin spinning={spin}>
     <div className="homePage">
       {!state.isMobileView && (
         <Image
@@ -58,6 +59,7 @@ const Home = () => {
         </div>
       </div>
     </div>
+    </Spin>
   );
 };
 
