@@ -93,7 +93,7 @@ const Compare = () => {
                 return (
                   <div className="singleUser" key={index}>
                   <div className="emptyUser">
-                    <Button type="primary" icon={<PlusOutlined />} onClick={addUser}>
+                    <Button type="primary" icon={<PlusOutlined />} onClick={addUser} className="addUserBtn">
                       Add user
                     </Button>
                     </div>
